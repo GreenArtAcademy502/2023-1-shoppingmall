@@ -1,0 +1,2 @@
+/imgs/product/3/7ea37b4c-1049-4d5d-baa0-f97cad1fd2b2.jpg
+mainPic값이 위 처럼 json형태로 만들어서 응답
