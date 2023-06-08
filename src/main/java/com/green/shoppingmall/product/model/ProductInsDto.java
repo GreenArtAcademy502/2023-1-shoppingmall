@@ -1,6 +1,7 @@
 package com.green.shoppingmall.product.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 public class ProductInsDto {
