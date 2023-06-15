@@ -2,6 +2,7 @@ package com.green.shoppingmall.product;
 
 import com.green.shoppingmall.product.model.ProductEntity;
 import com.green.shoppingmall.product.model.ProductInsDto;
+import com.green.shoppingmall.product.model.ProductPicEntity;
 import com.green.shoppingmall.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -59,5 +62,36 @@ public class ProductService {
             return 0;
         }
         return 1;
+    }
+
+    public Long insProductPics(Long iproduct, List<MultipartFile> pics) throws Exception {
+        // pk > pics 폴더를 만든다.
+        String targetDir = String.format("%s/product/%d/pics", fileDir, iproduct);
+        File fileTargetDir = new File(targetDir);
+        if(!fileTargetDir.exists()) {
+            fileTargetDir.mkdirs();
+        }
+
+        List<ProductPicEntity> picList = new ArrayList<>();
+
+        for(MultipartFile img : pics) {
+            String savedFileNm = FileUtils.makeRandomFileNm(img.getOriginalFilename());
+            System.out.println("savedFileNm : " + savedFileNm);
+
+            File fileTarget = new File(String.format("%s/%s", targetDir, savedFileNm));
+            try {
+                img.transferTo(fileTarget);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new Exception("이미지 저장 실패");
+            }
+
+            ProductPicEntity entity = new ProductPicEntity();
+            entity.setIproduct(iproduct);
+            entity.setPic(savedFileNm);
+            picList.add(entity);
+        }
+
+        return Long.valueOf(mapper.insProductPic(picList));
     }
 }

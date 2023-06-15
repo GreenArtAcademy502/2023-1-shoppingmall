@@ -5,11 +5,10 @@ import com.green.shoppingmall.product.model.ProductInsDto;
 import com.green.shoppingmall.product.model.SingSangSongDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -28,15 +27,10 @@ public class ProductController {
         return service.insProduct(img, dto);
     }
 
-
-
-
-
-
-
-
-
-
+    @PostMapping(value="/{iproduct}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public Long insProductPics(@PathVariable Long iproduct, @RequestPart List<MultipartFile> pics) throws Exception{
+        return service.insProductPics(iproduct, pics);
+    }
 
 
 
@@ -50,5 +44,13 @@ public class ProductController {
     }
 
 
+    @RequestMapping(value="/test1", method = RequestMethod.GET)
+    public String test1() {
+        return "test1";
+    }
 
+    @GetMapping(value="/test2")
+    public String test2() {
+        return "test2";
+    }
 }
