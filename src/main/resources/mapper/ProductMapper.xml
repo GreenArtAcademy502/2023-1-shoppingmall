@@ -19,4 +19,9 @@
             #{item.iproduct}, #{item.pic}
         </foreach>
     </insert>
+
+    <select id="selProduct">
+        SELECT iproduct, price, nm, main_pic mainPic, brand
+        FROM t_product
+    </select>
 </mapper>

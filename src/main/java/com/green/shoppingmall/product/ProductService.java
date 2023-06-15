@@ -3,7 +3,9 @@ package com.green.shoppingmall.product;
 import com.green.shoppingmall.product.model.ProductEntity;
 import com.green.shoppingmall.product.model.ProductInsDto;
 import com.green.shoppingmall.product.model.ProductPicEntity;
+import com.green.shoppingmall.product.model.ProductVo;
 import com.green.shoppingmall.utils.FileUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,16 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
     @Value("${file.dir}")
     private String fileDir;
 
     private final ProductMapper mapper;
-
-    @Autowired
-    public ProductService(ProductMapper mapper) {
-        this.mapper = mapper;
-    }
 
     public int insProduct(MultipartFile img, ProductInsDto dto) {
         ProductEntity entity = new ProductEntity();
@@ -93,5 +91,9 @@ public class ProductService {
         }
 
         return Long.valueOf(mapper.insProductPic(picList));
+    }
+
+    List<ProductVo> selProduct() {
+        return mapper.selProduct();
     }
 }
