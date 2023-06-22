@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     @GetMapping("/{iproduct}")
-    public ProductDetailResponse getProductDetail(@PathVariable int iproduct) {
+    public ProductDetailResponse getProductDetail(@PathVariable Long iproduct) {
         return service.selProductDetail(new ProductGetDetailDto(iproduct));
     }
 
