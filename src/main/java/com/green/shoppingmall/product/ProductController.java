@@ -1,12 +1,7 @@
 package com.green.shoppingmall.product;
 
-import com.green.shoppingmall.product.model.ProductEntity;
-import com.green.shoppingmall.product.model.ProductInsDto;
-import com.green.shoppingmall.product.model.ProductVo;
-import com.green.shoppingmall.product.model.SingSangSongDto;
-import lombok.AllArgsConstructor;
+import com.green.shoppingmall.product.model.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +31,10 @@ public class ProductController {
         return service.selProduct();
     }
 
+    @GetMapping("/{iproduct}")
+    public ProductDetailResponse getProductDetail(@PathVariable int iproduct) {
+        return service.selProductDetail(new ProductGetDetailDto(iproduct));
+    }
 
 
     //연습했음

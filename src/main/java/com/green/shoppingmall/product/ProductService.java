@@ -1,12 +1,8 @@
 package com.green.shoppingmall.product;
 
-import com.green.shoppingmall.product.model.ProductEntity;
-import com.green.shoppingmall.product.model.ProductInsDto;
-import com.green.shoppingmall.product.model.ProductPicEntity;
-import com.green.shoppingmall.product.model.ProductVo;
+import com.green.shoppingmall.product.model.*;
 import com.green.shoppingmall.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -95,5 +91,15 @@ public class ProductService {
 
     List<ProductVo> selProduct() {
         return mapper.selProduct();
+    }
+
+    public ProductDetailResponse selProductDetail(ProductGetDetailDto dto) {
+        ProductDetailVo data = mapper.selProductById(dto);
+        List<String> pics = mapper.selProductPics(dto);
+
+        return ProductDetailResponse.builder()
+                .data(data)
+                .pics(pics)
+                .build();
     }
 }
