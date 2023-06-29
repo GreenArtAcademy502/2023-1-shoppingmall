@@ -1,5 +1,7 @@
 package com.green.shoppingmall.utils;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 public class FileUtils {
@@ -17,4 +19,11 @@ public class FileUtils {
     public static String makeRandomFileNm(String fileNm) {
         return UUID.randomUUID() + "." +  getExt(fileNm);
     }
+
+    public static String getAbsolutePath(String path) {
+        Path p = Paths.get(path);
+        return p.toFile().getAbsolutePath();
+    }
+
+
 }
