@@ -22,8 +22,6 @@ public class ReviewService {
     @Value("${file.dir}")
     private String FILE_DIR;
 
-
-
     public int insReview(ReviewInsDto dto) {
         ReviewEntity entity = new ReviewEntity();
         entity.setIbuy(dto.getIbuy());
@@ -38,9 +36,6 @@ public class ReviewService {
         if(!dicFile.exists()) {
             dicFile.mkdirs();
         }
-
-
-        //List<ReviewPicInsDto> picDtoList = new ArrayList<>();
         ReviewPicInsDto picDto = new ReviewPicInsDto();
         picDto.setIreview(entity.getIreview());
         List<String> pics = new ArrayList<>();
@@ -54,21 +49,10 @@ public class ReviewService {
             try {
                 file.transferTo(saveFile);
                 pics.add(saveFileNm);
-//                ReviewPicInsDto picDto = new ReviewPicInsDto();
-//                picDto.setIreview(entity.getIreview());
-//                picDto.setPic(saveFileNm);
-//                picDtoList.add(picDto);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        /*
-        if(picDtoList.size() > 0) {
-            int reviewPicResult = mapper.insReviewPics(picDtoList);
-        }
-
-         */
-
         int reviewPicResult = mapper.insReviewPics(picDto);
         return 1;
     }
