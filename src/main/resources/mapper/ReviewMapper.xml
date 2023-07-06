@@ -3,7 +3,7 @@
 <mapper namespace="com.green.shoppingmall.review.ReviewMapper">
     <resultMap id="reviewVo" type="ReviewVo">
         <id property="ireview" column="ireview" />
-        <association property="pics" column="{ireview=ireview}" select="selReviewPic" />
+        <association property="pics" column="ireview" select="selReviewPic" />
     </resultMap>
 
     <insert id="insReview" useGeneratedKeys="true" keyProperty="ireview">
@@ -24,9 +24,9 @@
 
     <select id="selReview" resultMap="reviewVo">
         SELECT
-        B.ireview, B.star, B.created_at createdAt, B.ctnt
-        , C.nm productNm
-        , D.nm buyerNm
+            B.ireview, B.star, B.created_at createdAt, B.ctnt
+            , C.nm productNm
+            , D.nm buyerNm
         FROM t_buy A
         INNER JOIN t_review B
         ON A.ibuy = B.ibuy
@@ -34,7 +34,7 @@
         ON A.iproduct = C.iproduct
         INNER JOIN t_customer D
         ON A.icustomer = D.icustomer
-        WHERE A.iproduct = #{iproduct};
+        WHERE A.iproduct = #{iproduct}
     </select>
 
     <select id="selReviewPic" resultType="String">
